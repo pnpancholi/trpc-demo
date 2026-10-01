@@ -1,10 +1,10 @@
 import { initTRPC } from "@trpc/server";
-
+import { getBooks } from "./book.ts";
 const t = initTRPC.create();
 
 export const appRouter = t.router({
-  hello: t.procedure.query(function() {
-    return "Hello from tRPC"
+  book: t.router({
+    list: t.procedure.query(() => getBooks())
   })
 })
 
