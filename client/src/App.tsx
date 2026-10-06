@@ -1,24 +1,21 @@
 import './App.css'
 import React from "react"
 import { trpc } from './trpc'
-import { getBooks, type Book } from '../../server/src/book'
+import type { Book } from '../../server/src/book'
 
 type Books = Awaited<ReturnType<typeof trpc.book.list.query>>
 
-function App() {
+export default function App() {
   const [books, setBooks] = React.useState<Books>([])
 
   React.useEffect(() => {
     trpc.book.list.query().then(setBooks)
-    setBooks(getBooks())
   }, [])
 
   return (
     <>
-      <h1>The Amazing Book App</h1>
-      <div className="container">
-        <BookList books={books} />
-      </div>
+      <a href="/add">Add a book</a>
+      <BookList books={books} />
     </>
   )
 }
@@ -40,5 +37,3 @@ function BookList({ books }: { books: Book[] }) {
   )
 }
 
-
-export default App

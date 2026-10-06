@@ -30,3 +30,6 @@ export function addBook(input: { title: string, author: string, rating: number }
   return book
 }
 
+export function normalize(str: string) {
+  return str.toLowerCase().replace(/\s+/g, "")
+}
