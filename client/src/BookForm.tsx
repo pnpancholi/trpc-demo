@@ -6,7 +6,7 @@ export default function BookForm() {
   const [form, setForm] = React.useState({ title: "", author: "", rating: 0 })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    setForm({ ...form!!!, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = (e: React.SubmitEvent) => {
@@ -17,7 +17,7 @@ export default function BookForm() {
     <>
       <form
         onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "8px", maxWidth: "400px", margin: "0 auto" }}>
+        style={{ display: "flex", flexDirection: "column", gap: "8px", maxWidth: "400px", margin: "100px auto" }}>
         <input name="title" placeholder="Title" onChange={handleChange} />
         <input name="author" placeholder="Author" onChange={handleChange} />
         <input

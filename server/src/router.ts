@@ -1,5 +1,7 @@
+import { on } from "node:events"
+import { bookEvents } from "./book.ts";
 import { initTRPC } from "@trpc/server";
-import { addBook, getBooks, normalize } from "./book.ts";
+import { addBook, getBooks, getBookById, normalize, updateBook } from "./book.ts";
 
 const t = initTRPC.create();
 
@@ -14,6 +16,19 @@ export const appRouter = t.router({
         }
         addBook(input)
       }),
+    onAdd: t.procedure.subscription(async function*({ signal }) {
+      for await (const _ of on(bookEvents, "add", { signal })) {
+        yield getBooks()
+      }
+    }),
+    details: t.procedure
+      .input((value) => value as { id: string })
+      .query(({ input }) => getBookById(input.id)),
+    update: t.procedure
+      .input(value => value as { id: string, title: string, author: string, rating: number })
+      .mutation(({ input }) => {
+        updateBook(input.id, input)
+      })
 
   })
 })

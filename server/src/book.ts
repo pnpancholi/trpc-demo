@@ -1,3 +1,5 @@
+import { EventEmitter } from "node:events"
+
 export type Book = {
   id: string
   title: string
@@ -14,6 +16,8 @@ const books: Book[] = [
   { id: "3", title: "Man's Search for Meaning", author: "n/a", rating: 4.5, addedAt: formatDate(new Date()) }
 ]
 
+export const bookEvents = new EventEmitter()
+
 export function getBooks(): Book[] {
   return books
 }
@@ -27,9 +31,46 @@ export function addBook(input: { title: string, author: string, rating: number }
     addedAt: formatDate(new Date())
   }
   books.push(book)
+  bookEvents.emit("add")
   return book
 }
 
 export function normalize(str: string) {
   return str.toLowerCase().replace(/\s+/g, "")
 }
+
+export function getBookById(id: string): Book | undefined {
+  const book = books.find(b => b.id === id)
+  if (!book) throw new Error("Book not found")
+  return book
+}
+
+export function updateBook(
+  id: string,
+  input: { title: string, author: string, rating: number }): void {
+  const book = getBookById(id)
+  if (!book) throw new Error("Book not found")
+  book.title = input.title
+  book.author = input.author
+  book.rating = input.rating
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "./App"
 import BookForm from "./BookForm"
+import EditBook from "./EditBook"
 
 function Shell() {
   return (
@@ -14,7 +15,8 @@ export const router = createBrowserRouter([
   {
     element: <Shell />, children: [
       { path: "/", element: <App /> },
-      { path: "/add", element: <BookForm /> }
+      { path: "/add", element: <BookForm /> },
+      { path: "/edit/:id", element: <EditBook /> }
     ]
   }
 ])
