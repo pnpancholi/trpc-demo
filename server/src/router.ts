@@ -5,9 +5,19 @@ import { addBook, getBooks, getBookById, normalize, updateBook } from "./book.ts
 
 const t = initTRPC.create();
 
+const logger = t.middleware(async ({ path, type, next }) => {
+  console.info(`-> request of type ${type} at path ${path} `)
+  const start = Date.now()
+  const result = await next()
+  console.info(`<- request of type ${type} at path ${path} took ${Date.now() - start} ms`)
+  return result
+})
+
+const loggedProcedure = t.procedure.use(logger)
+
 export const appRouter = t.router({
   book: t.router({
-    list: t.procedure.query(() => getBooks()),
+    list: loggedProcedure.query(() => getBooks()),
     add: t.procedure
       .input((value) => value as { title: string, author: string, rating: number })
       .mutation(({ input }) => {
