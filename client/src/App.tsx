@@ -10,8 +10,8 @@ export default function App() {
 
   React.useEffect(() => {
     trpc.book.list.query().then(setBooks)
-    const sub = trpc.book.onAdd.subscribe(undefined, { onData: setBooks })
-    return () => sub.unsubscribe()
+    const subToListUpdate = trpc.book.onUpdate.subscribe(undefined, { onData: setBooks })
+    return () => subToListUpdate.unsubscribe()
   }, [])
 
   return (

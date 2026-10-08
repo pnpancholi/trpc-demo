@@ -26,7 +26,7 @@ export default function BookForm() {
           placeholder="Rating"
           onChange={handleChange}
           min={0} max={5} step={1} />
-        <button type="submit">Submit</button>
+        <button type="submit">Add New Book</button>
         <a href="/">Back</a>
       </form >
     </>

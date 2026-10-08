@@ -16,8 +16,8 @@ export const appRouter = t.router({
         }
         addBook(input)
       }),
-    onAdd: t.procedure.subscription(async function*({ signal }) {
-      for await (const _ of on(bookEvents, "add", { signal })) {
+    onUpdate: t.procedure.subscription(async function*({ signal }) {
+      for await (const _ of on(bookEvents, "update", { signal })) {
         yield getBooks()
       }
     }),

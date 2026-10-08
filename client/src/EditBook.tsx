@@ -49,7 +49,7 @@ function EditForm({ book, handleOnChange, handleOnSubmit }: { book: Book, handle
       <input name="title" value={book?.title} onChange={handleOnChange} />
       <input name="author" value={book?.author} onChange={handleOnChange} />
       <input name="rating" value={book?.rating} onChange={handleOnChange} />
-      <button type="submit">Submit</button>
+      <button type="submit">Save Changes</button>
       <a href="/">Back</a>
     </form>
   )

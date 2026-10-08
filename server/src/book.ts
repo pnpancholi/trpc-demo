@@ -31,7 +31,7 @@ export function addBook(input: { title: string, author: string, rating: number }
     addedAt: formatDate(new Date())
   }
   books.push(book)
-  bookEvents.emit("add")
+  bookEvents.emit("update")
   return book
 }
 
@@ -53,24 +53,9 @@ export function updateBook(
   book.title = input.title
   book.author = input.author
   book.rating = input.rating
+  bookEvents.emit("update")
+  return
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
